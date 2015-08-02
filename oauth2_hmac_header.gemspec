@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Mustafa TURAN"]
   spec.email         = ["mustafaturan.net@gmail.com"]
 
-  spec.summary       = %q{A single header generator, parser and validator Oauth v2 HTTP MAC authentication.}
+  spec.summary       = %q{Authorization header generator, parser and validator Oauth v2 HTTP MAC authentication.}
   spec.description   = %q{Generate, parse and verify header information for oauth v2 http mac authentication.}
   spec.homepage      = "https://github.com/mustafaturan/oauth2_hmac_header"
 
