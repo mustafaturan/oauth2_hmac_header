@@ -26,13 +26,15 @@ Or install it yourself as:
 ```ruby
     
     @client_id = 'client1'
-    @algorithm = 'hmac-sha-256''hmac-sha-256' # 'hmac-sha-1' or 'hmac-sha-256'
+    @algorithm = 'hmac-sha-256' # 'hmac-sha-1' or 'hmac-sha-256'
     @key = 'demo_key' # key for client1
     @method = 'post' # get, post, put, head, patch, etc...
     @uri = '/request?b5=%3D%253D&a3=a&c%40=&a2=r%20b&c2&a3=2+q' # path for req
     @host = 'example.com' # hostname for the request
     @port = 443 # port number for the request
     @ext = 'a,b,c' # optional str, can be nil
+    
+    # generate header
     @header = Oauth2HmacHeader::AuthorizationHeader.generate_with_new_signature(
       @client_id, @algorithm, @key, @method, @uri, @host, @port, @ext
     )
@@ -52,9 +54,13 @@ Or install it yourself as:
     @host = 'example.com' # hostname for the request
     @port = 443 # port number for the request
     @ext = 'a,b,c' # optional str, can be nil
+    
+    # generate HMAC signature and vars 
     @ts, @nonce, @ext, @mac  = Oauth2HmacSign::Signature.generate(
       @algorithm, @key, @method, @uri, @host, @port, @ext
     )
+    
+    # generate header
     @header = Oauth2HmacHeader::AuthorizationHeader.generate(
       @client_id, @ts, @nonce, @ext, @mac
     )
