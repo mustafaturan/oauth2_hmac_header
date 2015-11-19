@@ -57,10 +57,10 @@ describe Oauth2HmacHeader::AuthorizationHeader do
       @header = Oauth2HmacHeader::AuthorizationHeader.generate(
         @client_id, @ts, @nonce, @ext, @mac
       )
-      @header = @header.gsub(/(mac=\"[^"]+)/, 'mac="')
-      expect {Oauth2HmacHeader::AuthorizationHeader.parse(@header)}.to raise_error(StandardError)
-      @header = @header.gsub("mac=\"\"", '')
-      expect {Oauth2HmacHeader::AuthorizationHeader.parse(@header)}.to raise_error(KeyError)
+      header1 = @header.gsub(/(mac=\"[^"]+\")/, '')
+      header2 = @header.gsub(/(mac=\"[^"]+)/, 'mac="')
+      expect {Oauth2HmacHeader::AuthorizationHeader.parse(header1)}.to raise_error(KeyError)
+      expect {Oauth2HmacHeader::AuthorizationHeader.parse(header2)}.to raise_error(KeyError)
     end
   end
 end
