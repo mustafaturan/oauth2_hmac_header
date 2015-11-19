@@ -52,5 +52,15 @@ describe Oauth2HmacHeader::AuthorizationHeader do
       expect(ext_parsed).to eq(@ext)
       expect(mac_parsed).to eq(@mac)
     end
+
+    it 'unparsable headers raises error' do
+      @header = Oauth2HmacHeader::AuthorizationHeader.generate(
+        @client_id, @ts, @nonce, @ext, @mac
+      )
+      @header = @header.gsub(/(mac=\"[^"]+)/, 'mac="')
+      expect {Oauth2HmacHeader::AuthorizationHeader.parse(@header)}.to raise_error(StandardError)
+      @header = @header.gsub("mac=\"\"", '')
+      expect {Oauth2HmacHeader::AuthorizationHeader.parse(@header)}.to raise_error(KeyError)
+    end
   end
 end

@@ -115,8 +115,7 @@ module Oauth2HmacHeader
       def validate_presence_of_keys_and_values(hash, keys)
         keys.each do |key|
           raise(KeyError, "#{key} is a MUST field for Oauth V2 HMAC Authorization header.") unless hash.has_key?(key)
-          next if !hash[key].nil? && !hash[key].empty?
-          raise(StandardError, "#{key} is a MUST field for Oauth V2 HMAC Authorization header and can not be blank!") unless hash.has_key?(key)
+          raise(StandardError, "#{key} is a MUST field for Oauth V2 HMAC Authorization header and can not be blank!") if hash[key].nil? || hash[key].empty?
         end
       end
     end
